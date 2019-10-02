@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from blog.models import Post, Comment
-from . import CommentForm
+from blog.forms import CommentForm
 
 def blog_index(request):
     posts = Post.objects.all().order_by('-created_on')
