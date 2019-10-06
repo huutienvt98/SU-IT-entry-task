@@ -6,6 +6,7 @@
     {% for post in posts %}
     <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
     <small>
+        Posted by: {{ post.author }} |&nbsp;
         {{ post.created_on.date }} |&nbsp;
         Categories:&nbsp;
         {% for category in post.categories.all %}

@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from blog.models import Post, Comment
 from blog.forms import CommentForm
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def blog_index(request):
     posts = Post.objects.all().order_by('-created_on')
     context = {
@@ -9,6 +13,7 @@ def blog_index(request):
     }
     return render(request, "blog_index.html", context)
 
+@login_required
 def blog_category(request, category):
     posts = Post.objects.filter(
         categories__name__contains=category
@@ -21,6 +26,7 @@ def blog_category(request, category):
     }
     return render(request, "blog_category.html", context)
 
+@login_required
 def blog_detail(request, pk):
     post = Post.objects.get(pk=pk)
 
@@ -29,10 +35,11 @@ def blog_detail(request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = Comment(
-                author=form.cleaned_data["author"],
+                author = request.user,                              
                 body=form.cleaned_data["body"],
                 post=post
             )
+            
             comment.save()
 
     comments = Comment.objects.filter(post=post)
