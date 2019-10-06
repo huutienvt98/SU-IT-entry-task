@@ -29,6 +29,5 @@ class CustomUserCreationForm(forms.Form):
         user = User.objects.create_user(
             self.cleaned_data['username'],
             self.cleaned_data['password1']
-        )
-        user.set_password( self.cleaned_data['password1'])
+        )        
         return user
