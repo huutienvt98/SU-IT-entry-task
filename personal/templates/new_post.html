@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<div class="col-md-8 offset-md-2">
+    <h2>New post</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-primary">Save</button>
+    </form>
+</div>
+    
+{% endblock %}
