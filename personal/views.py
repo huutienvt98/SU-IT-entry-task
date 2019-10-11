@@ -31,6 +31,13 @@ def new_post(request):
         form = PostForm()
     return render(request, 'new_post.html', {'form': form})
 
+@login_required
+def delete_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    username = post.author
+    post.delete()
+    return redirect('personal', username = username)
+
 
 
 # Create your views here.

@@ -19,6 +19,9 @@
         {% endfor %}
     </small>
     <p>{{ post.body | slice:":400" }}...</p>
+    {% if user.is_authenticated and post.author == user %}
+    <a class="btn btn-danger float-right" href="{% url 'delete_post' pk=post.pk %}">Delete</span></a>
+    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}
